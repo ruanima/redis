@@ -35,7 +35,7 @@
 
 #include <stdint.h>
 
-#ifndef __DICT_H
+#ifndef __DICT_H  /* 防止多次include */
 #define __DICT_H
 
 #define DICT_OK 0
@@ -44,6 +44,7 @@
 /* Unused arguments generate annoying warnings... */
 #define DICT_NOTUSED(V) ((void) V)
 
+/* 字典(key, value) pair */
 typedef struct dictEntry {
     void *key;
     union {

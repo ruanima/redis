@@ -33,7 +33,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "fmacros.h"
+#include "fmacros.h"   // 平台相关定义
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -45,7 +45,7 @@
 
 #include "dict.h"
 #include "zmalloc.h"
-#ifndef DICT_BENCHMARK_MAIN
+#ifndef DICT_BENCHMARK_MAIN   // 性能测试
 #include "redisassert.h"
 #else
 #include <assert.h>
@@ -59,7 +59,7 @@
  * Note that even when dict_can_resize is set to 0, not all resizes are
  * prevented: a hash table is still allowed to grow if the ratio between
  * the number of elements and the buckets > dict_force_resize_ratio. */
-static int dict_can_resize = 1;
+static int dict_can_resize = 1;  // 是否允许resize
 static unsigned int dict_force_resize_ratio = 5;
 
 /* -------------------------- private prototypes ---------------------------- */

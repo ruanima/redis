@@ -28,6 +28,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+/* list头文件, 双向链表的实现 */
 #ifndef __ADLIST_H__
 #define __ADLIST_H__
 
@@ -45,8 +46,8 @@ typedef struct listIter {
 } listIter;
 
 typedef struct list {
-    listNode *head;
-    listNode *tail;
+    listNode *head;  /* 头结点 */
+    listNode *tail;  /* 尾结点 */
     void *(*dup)(void *ptr);
     void (*free)(void *ptr);
     int (*match)(void *ptr, void *key);
