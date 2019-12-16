@@ -46,32 +46,32 @@
 
 /* 字典(key, value) pair */
 typedef struct dictEntry {
-    void *key;
+    void *key;  // key
     union {
-        void *val;
-        uint64_t u64;
-        int64_t s64;
-        double d;
-    } v;
-    struct dictEntry *next;
+        void *val;  // 存储字符串的指针
+        uint64_t u64;  // 64位无符号整数
+        int64_t s64;  // 64有符号整数
+        double d;  // 浮点数
+    } v;  // value
+    struct dictEntry *next;  // 后继指针
 } dictEntry;
 
 typedef struct dictType {
     uint64_t (*hashFunction)(const void *key);
-    void *(*keyDup)(void *privdata, const void *key);
-    void *(*valDup)(void *privdata, const void *obj);
+    void *(*keyDup)(void *privdata, const void *key);  // 复制key
+    void *(*valDup)(void *privdata, const void *obj);  // 复制val
     int (*keyCompare)(void *privdata, const void *key1, const void *key2);
-    void (*keyDestructor)(void *privdata, void *key);
+    void (*keyDestructor)(void *privdata, void *key);  // 销毁key
     void (*valDestructor)(void *privdata, void *obj);
 } dictType;
 
 /* This is our hash table structure. Every dictionary has two of this as we
  * implement incremental rehashing, for the old to the new table. */
 typedef struct dictht {
-    dictEntry **table;
+    dictEntry **table;  // dict pair array
     unsigned long size;
     unsigned long sizemask;
-    unsigned long used;
+    unsigned long used;  // 已使用
 } dictht;
 
 typedef struct dict {
