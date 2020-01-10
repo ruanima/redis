@@ -147,7 +147,7 @@ int dictResize(dict *d)
 int dictExpand(dict *d, unsigned long size)
 {
     dictht n; /* the new hash table */
-    unsigned long realsize = _dictNextPower(size);
+    unsigned long realsize = _dictNextPower(size);  // 下一级大小, 目前是翻倍增长
 
     /* the size is invalid if it is smaller than the number of
      * elements already inside the hash table */
