@@ -160,7 +160,7 @@ int dictExpand(dict *d, unsigned long size)
     /* Allocate the new hash table and initialize all pointers to NULL */
     n.size = realsize;
     n.sizemask = realsize-1;
-    n.table = zcalloc(realsize*sizeof(dictEntry*));
+    n.table = zcalloc(realsize*sizeof(dictEntry*));  // sizeof(dictEntry*) 指向dictEntry的指针, 8
     n.used = 0;
 
     /* Is this the first initialization? If so it's not really a rehashing
@@ -200,6 +200,7 @@ int dictRehash(dict *d, int n) {
             if (--empty_visits == 0) return 1;
         }
         de = d->ht[0].table[d->rehashidx];
+        // 复制整个链表到新位置
         /* Move all the keys in this bucket from the old to the new hash HT */
         while(de) {
             uint64_t h;
@@ -207,7 +208,7 @@ int dictRehash(dict *d, int n) {
             nextde = de->next;
             /* Get the index in the new hash table */
             h = dictHashKey(d, de->key) & d->ht[1].sizemask;
-            de->next = d->ht[1].table[h];
+            de->next = d->ht[1].table[h];   // 插入到链表头部
             d->ht[1].table[h] = de;
             d->ht[0].used--;
             d->ht[1].used++;
@@ -230,6 +231,7 @@ int dictRehash(dict *d, int n) {
     return 1;
 }
 
+// 获得微秒时间戳
 long long timeInMilliseconds(void) {
     struct timeval tv;
 

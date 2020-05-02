@@ -53,7 +53,7 @@ typedef struct dictEntry {
         int64_t s64;  // 64有符号整数
         double d;  // 浮点数
     } v;  // value
-    struct dictEntry *next;  // 后继指针
+    struct dictEntry *next;  // 后继指针, 为了解决哈希冲突
 } dictEntry;
 
 typedef struct dictType {
@@ -68,9 +68,9 @@ typedef struct dictType {
 /* This is our hash table structure. Every dictionary has two of this as we
  * implement incremental rehashing, for the old to the new table. */
 typedef struct dictht {
-    dictEntry **table;  // dict pair array
-    unsigned long size;
-    unsigned long sizemask;
+    dictEntry **table;  // dict pair array, table是个数组, 所以这里是指向指针的指针
+    unsigned long size;  // 哈希表大小
+    unsigned long sizemask;  // 掩码, 总是等于size-1
     unsigned long used;  // 已使用
 } dictht;
 
